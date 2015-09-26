@@ -19,6 +19,8 @@ import com.google.apphosting.api.ApiProxy;
 import com.google.apphosting.api.UserServicePb.CreateLoginURLResponse;
 import com.google.apphosting.vmruntime.VmApiProxyEnvironment;
 
+import java.net.InetAddress;
+
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -149,6 +151,7 @@ public class VmRuntimeJettyAuthTest extends VmRuntimeTestBase {
     HttpClient httpClient = new HttpClient();
     httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(30000);
     GetMethod get = new GetMethod(createUrlForHostIP("/admin/test-auth").toString());
+    get.addRequestHeader(VmApiProxyEnvironment.REAL_IP_HEADER, "127.0.0.2"); // Force untrusted dev IP
     get.setFollowRedirects(false);
     int httpCode = httpClient.executeMethod(get);
     assertEquals(307, httpCode);
@@ -160,6 +163,7 @@ public class VmRuntimeJettyAuthTest extends VmRuntimeTestBase {
     HttpClient httpClient = new HttpClient();
     httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(30000);
     GetMethod get = new GetMethod(createUrlForHostIP("/admin/test-auth?foo=bar").toString());
+    get.addRequestHeader(VmApiProxyEnvironment.REAL_IP_HEADER, "127.0.0.2"); // Force untrusted dev IP
     get.setFollowRedirects(false);
     int httpCode = httpClient.executeMethod(get);
     assertEquals(307, httpCode);

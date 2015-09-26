@@ -4,12 +4,11 @@
   <parent>
     <groupId>com.google.appengine</groupId>
     <artifactId>appengine-java-vm-runtime</artifactId>
-  <version>1.9.23-SNAPSHOT</version>
+    <version>1.9.26-SNAPSHOT</version>
   </parent>
   <artifactId>appengine-managed-runtime</artifactId>
   <packaging>jar</packaging>
-  <name>appengine-managed-runtime</name>
-  <url>http://maven.apache.org</url>
+  <name>Google App Engine Runtime Support</name>
 
   <properties>
     <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
@@ -19,47 +18,24 @@
   <dependencies>
     <dependency>
       <groupId>com.google.appengine</groupId>
+      <artifactId>appengine-java-logging</artifactId>
+      <version>1.9.26-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
       <version>${appengine.api.version}</version>
-      <type>jar</type>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <version>1.10.19</version>
-      <scope>test</scope>
-      <type>jar</type>
-    </dependency>
-    <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>2.3.1</version>
-      <type>jar</type>
-    </dependency>
-    <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-web-api</artifactId>
-      <version>7.0</version>
-      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpcore</artifactId>
       <version>4.4.1</version>
-      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <version>4.4.1</version>
-      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>commons-logging</groupId>
@@ -72,18 +48,35 @@
       <version>1.10</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.google.appengine</groupId>
+      <artifactId>gce-jetty</artifactId>
+      <version>1.9.26-SNAPSHOT</version>
+      <type>pom</type>
+    </dependency>
 
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-web-api</artifactId>
+      <version>7.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+      <version>1.10.19</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
+
   <build>
     <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -139,32 +132,6 @@
                   <result>com.google.apphosting.repackaged.org.apache.commons.logging.@1</result>
                 </rule> 
               </rules>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      
-      <plugin>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>com.google.appengine</groupId>
-                  <artifactId>appengine-api-1.0-sdk</artifactId>
-                  <version>${appengine.api.version}</version>
-                  <type>jar</type>
-                  <overWrite>true</overWrite>
-                  <includes>**</includes>
-                  <outputDirectory>target</outputDirectory>
-                </artifactItem>
-              </artifactItems>
             </configuration>
           </execution>
         </executions>

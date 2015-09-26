@@ -38,11 +38,14 @@ import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.junit.Ignore;
+
 /**
  * Base test class for the Java VmRuntime.
  *
  * Test methods that are Jetty version independent should be implemented in this class.
  */
+@Ignore
 public  class VmRuntimeTestBase extends TestCase {
 
   protected static final Logger logger = Logger.getLogger(VmRuntimeTestBase.class.getName());
@@ -196,7 +199,7 @@ public  class VmRuntimeTestBase extends TestCase {
     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
     conn.setRequestProperty("Metadata-Flavor", "Google");
     return conn;
-}
+  }
     /** Timeout in milliseconds to retrieve data from the server. */
   private static final int TIMEOUT_MILLIS = 120 * 1000;
   
